@@ -1,0 +1,12 @@
+flowchart LR
+  %% Left-to-right streaming pipeline (no Outer/Inner Loop)
+  A[User Query] --> B[PlanAgent｜计划与拆解]
+  B --> C[拆分子任务]
+  C --> Q{{子任务队列}}
+  Q --> E[执行每个子任务]
+  E --> F[Agent｜调度与工具检索]
+  F --> T[ToolAgent｜执行器]
+  T --> R[Reflection｜反思]
+  R --> FB[反馈与结果汇总]
+  FB --> U[PlanAgent｜更新（可选：增/删/改）]
+  U --> K[End Result]
