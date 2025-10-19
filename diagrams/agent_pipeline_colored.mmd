@@ -1,0 +1,60 @@
+%%{init: {'theme':'base', 'themeVariables': { 'fontFamily': 'Inter,Arial,Segoe UI Emoji' }}}%%
+%% Simplified colored agent workflow with icons
+flowchart LR
+
+classDef goal fill:#E1F3FF,stroke:#1f7ae0,color:#093a8b
+classDef eval fill:#E7F5E9,stroke:#2c9a43,color:#1c5d2d
+classDef decomp fill:#FFF4E0,stroke:#f0a400,color:#7a4d00
+classDef task fill:#FFF7ED,stroke:#fb923c,color:#7c2d12
+classDef recruit fill:#F1E8FF,stroke:#8b5cf6,color:#4c1d95
+classDef agent fill:#ECFDF5,stroke:#10b981,color:#065f46
+classDef tool fill:#FEF3C7,stroke:#f59e0b,color:#7c2d12
+classDef summary fill:#DBEAFE,stroke:#3b82f6,color:#1e3a8a
+classDef result fill:#E5E7EB,stroke:#6b7280,color:#111827
+classDef human fill:#FFE4E6,stroke:#f43f5e,color:#9f1239
+
+G(["🎯 Goal"]):::goal
+TE[["🧠 Task Evaluation"]]:::eval
+TD[["🧩 Task Decomposition"]]:::decomp
+
+G --> TE --> TD
+
+subgraph TASKS[Subtasks]
+  direction LR
+  t1(["🧩 T1"]):::task
+  t2(["🧩 T2"]):::task
+  t3(["🧩 T3"]):::task
+end
+
+TD --> t1
+TD --> t2
+TD --> t3
+
+AR[["🧑‍💼 Agent Recruitment"]]:::recruit
+TD --> AR
+
+subgraph AE[Action Execution]
+  direction LR
+  A1(("🤖 Agent 1")):::agent -- uses --> Tool1[["🛠 Tool 1"]]:::tool
+  A2(("🤖 Agent 2")):::agent -- uses --> Tool2[["🛠 Tool 2"]]:::tool
+  A3(("🤖 Agent 3")):::agent -- uses --> Tool3[["🛠 Tool 3"]]:::tool
+  
+  A1 --> R1["Result 1"]
+  A2 --> R2["Result 2"]
+  A3 --> R3["Result 3"]
+end
+
+AR --> A1
+AR --> A2
+AR --> A3
+
+t1 -. assign .-> A1
+t2 -. assign .-> A2
+t3 -. assign .-> A3
+
+R1 -.-> SUM[["🧾 Summary"]]:::summary
+R2 -.-> SUM
+R3 -.-> SUM
+
+SUM --> RE[["✅ Result Evaluation"]]:::result
+RE --> H(["👤 Human Evaluation"]):::human

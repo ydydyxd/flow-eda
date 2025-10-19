@@ -1,0 +1,19 @@
+%% Simplified agent workflow
+flowchart LR
+  %% Main linear flow
+  G([Goal]) --> TE[[Task Evaluation]] --> AR[[Agent Recruitment]]
+
+  subgraph AE[Action Execution]
+    direction LR
+    A1[(Agent 1)] -->|actions| R1[Result 1]
+    A2[(Agent 2)] -->|actions| R2[Result 2]
+    A3[(Agent 3)] -->|actions| R3[Result 3]
+  end
+
+  AR --> AE
+
+  R1 -.-> SUM[Summary]
+  R2 -.-> SUM
+  R3 -.-> SUM
+
+  SUM --> RE[[Result Evaluation]] --> H([Human Evaluation])
