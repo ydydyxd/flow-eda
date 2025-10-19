@@ -1,0 +1,62 @@
+%% AgentVerse-like workflow diagram (approximation)
+flowchart LR
+  %% Left: Goal and Outcome
+  subgraph GOAL[ ]
+    direction TB
+    G["Goal\nBuild 🏠"]
+    O["Outcome\n✨ House"]
+  end
+
+  %% Main iterative process
+  subgraph LOOP["x N rounds"]
+    direction TB
+
+    subgraph ER["Expert Recruitment"]
+      direction LR
+      er1["👷‍♂️ Candidate A"]
+      er2["🧑‍🎓 Candidate B"]
+      er3["👩‍🔧 Candidate C"]
+      grp((Group ? ? ?))
+      er1 --> grp
+      er2 --> grp
+      er3 --> grp
+    end
+
+    subgraph CDM["Collaborative Decision-Making"]
+      direction TB
+      idea1([💡])
+      idea2([🤔])
+      leader[[👍 Leader]]
+      idea1 --> leader
+      idea2 --> leader
+      leader -. "× M turns" .- idea1
+      leader -. "× M turns" .- idea2
+    end
+
+    subgraph AE["Action Execution"]
+      direction TB
+      agents["Agents:\n👨‍🔧 👩‍🏭 👨‍🏭"]
+      acts["Actions:\n🪓 🌲 📏 🔨"]
+      agents --> acts
+    end
+
+    subgraph EV["Evaluation"]
+      direction LR
+      goal_icon["Goal 🏠"]
+      new_state["New State 🏚️"]
+      goal_icon --- eq{"="?}
+      eq --- new_state
+    end
+
+    newS([New State 🏚️])
+
+    grp --> CDM
+    CDM --> AE
+    AE --> newS
+    newS --> EV
+  end
+
+  %% Reward feedback
+  G --> ER
+  EV -->|Reward Feedback| G
+  EV --> O
